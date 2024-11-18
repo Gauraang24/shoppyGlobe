@@ -1,13 +1,24 @@
-import { useState } from 'react'
-import './App.css'
+import React from 'react'
+import Layout from './Components/Layout'
+import Home from './Pages/Home'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-      ShoppyGlobe
-    </>
+    <div>
+      <Router>
+        <Routes>
+          <Route element={<Layout />}>
+
+            <Route path="/" element={<Home />} />
+            {/*<Route path="/browse/:category" element={<BrowseBook />} />
+            <Route path="/details/:id" element={<BookDetail />} />
+            <Route path="/add" element={<AddBook />} />
+            <Route path="*" element={<NotFound />} /> */}
+          </Route>
+        </Routes>
+      </Router>
+    </div>
   )
 }
 
