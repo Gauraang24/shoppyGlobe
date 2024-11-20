@@ -1,14 +1,19 @@
-import { Button, Divider, Empty, Input, Spin } from 'antd';
+import { Divider, Empty, Input, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 import ProductList from './ProductList';
 import useFetch from '../utils/useFetch';
-import Search from 'antd/es/input/Search';
 import { SearchOutlined } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
     const { data = { products: [] }, loading, error } = useFetch("https://dummyjson.com/products");
     const [productList, setProductList] = useState(data?.products);
     const [searchValue, setSearchValue] = useState('');
+
+    const cartData = useSelector((state) => {
+        return state?.cart?.items
+    })
+    console.log("CartData::", cartData)
 
     useEffect(() => {
         setProductList(data?.products)

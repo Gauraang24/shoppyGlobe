@@ -1,7 +1,11 @@
 import React from 'react'
 import { HeartTwoTone, ShoppingTwoTone } from "@ant-design/icons";
+import { Badge } from 'antd';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
+    const cartData = useSelector(state => state.cart?.items)
+    console.log()
     return (
 
         <nav className='flex justify-between max-w-[1500px] w-screen mx-auto p-3'>
@@ -12,9 +16,11 @@ const Navbar = () => {
 
             <div className='flex items-center gap-5 '>
 
-                <ShoppingTwoTone style={{
-                    fontSize: "24px"
-                }} className='cursor-pointer' />
+                <Badge count={cartData.length}>
+                    <ShoppingTwoTone style={{
+                        fontSize: "24px"
+                    }} className='cursor-pointer' />
+                </Badge>
 
 
                 <HeartTwoTone style={{

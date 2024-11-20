@@ -2,11 +2,12 @@ import { Button, Rate } from 'antd';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { calculateOriginalPrice } from '../utils/functions';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem } from '../store/cartSlice';
 
 const ProductItems = ({ data }) => {
     const navigate = useNavigate()
-
-
+    const dispatch = useDispatch()
 
     return (
         <div className='border w-[300px] shadow-sm flex flex-col bg-white rounded-md cursor-pointer' onClick={() => {
@@ -41,6 +42,7 @@ const ProductItems = ({ data }) => {
 
                         <Button type='primary' className='w-full text-[14px] font-semibold' onClick={(e) => {
                             e.stopPropagation()
+                            dispatch(addItem(data))
                         }}>ADD TO CART</Button>
                     </div>
                 </div>
