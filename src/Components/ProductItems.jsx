@@ -47,7 +47,7 @@ const ProductItems = ({ data }) => {
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     )
 }
 

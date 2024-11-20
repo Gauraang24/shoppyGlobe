@@ -3,6 +3,7 @@ import Layout from './Components/Layout'
 import Home from './Pages/Home'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import ProductDetails from './Pages/ProductDetails'
+import Cart from './Pages/Cart'
 
 const App = () => {
   return (
@@ -10,14 +11,9 @@ const App = () => {
       <Router>
         <Routes>
           <Route element={<Layout />}>
-
             <Route path="/" element={<Home />} />
             <Route path="/productDetails/:id" element={<ProductDetails />} />
-
-            {/*<Route path="/browse/:category" element={<BrowseBook />} />
-            <Route path="/details/:id" element={<BookDetail />} />
-            <Route path="/add" element={<AddBook />} />
-            <Route path="*" element={<NotFound />} /> */}
+            <Route path="/cart" element={<Cart />} />
           </Route>
         </Routes>
       </Router>

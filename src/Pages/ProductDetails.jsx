@@ -2,11 +2,13 @@ import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import useFetch from '../utils/useFetch';
 import { Button, Rate, Tag } from 'antd';
-import { calculateOriginalPrice } from '../utils/functions';
+import { addItem } from '../store/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const ProductDetails = () => {
     const id = useParams().id
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const { data, loading, error } = useFetch(`https://dummyjson.com/products/${id}`);
     return (
         <>
@@ -35,10 +37,11 @@ const ProductDetails = () => {
                     <div className='flex items-center gap-4'>
 
                         <p className='text-4xl font-bold'>$ {data?.price}</p>
-                        {/* <p className='line-through'>{calculateOriginalPrice(data?.price, data?.discountPercentage)}</p> */}
                         <p className='text-[12px] font-medium bg-red-200 text-red-500 py-[2px] px-1 rounded-sm'>{data?.discountPercentage}% off</p>
                     </div>
-                    <Button type='default' className='rounded-full text-xl font-semibold py-6 px-10 mt-10 border-blue-500 text-blue-500'>Add to cart</Button>
+                    <Button type='default' className='rounded-full text-xl font-semibold py-6 px-10 mt-10 border-blue-500 text-blue-500' onClick={() => {
+                        dispatch(addItem(data))
+                    }}>Add to cart</Button>
 
                     <div className='mt-10'>
 
