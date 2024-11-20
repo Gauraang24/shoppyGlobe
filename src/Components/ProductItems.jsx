@@ -1,18 +1,17 @@
 import { Button, Rate } from 'antd';
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+import { calculateOriginalPrice } from '../utils/functions';
 
 const ProductItems = ({ data }) => {
+    const navigate = useNavigate()
 
-    function calculateOriginalPrice(discountedPrice, discountPercentage) {
-        if (discountPercentage >= 100 || discountPercentage < 0) {
-            throw new Error("Invalid discount percentage");
-        }
-        const originalPrice = discountedPrice / (1 - (discountPercentage / 100));
-        return originalPrice.toFixed(2);
-    }
+
 
     return (
-        <div className='border w-[300px] shadow-sm flex flex-col bg-white rounded-md'>
+        <div className='border w-[300px] shadow-sm flex flex-col bg-white rounded-md cursor-pointer' onClick={() => {
+            navigate(`productDetails/${data?.id}`)
+        }}>
             <div className='border-b'>
 
                 <img src={data?.thumbnail} alt={data?.title} width={300} />
@@ -40,11 +39,13 @@ const ProductItems = ({ data }) => {
                     </div>
                     <div className='w-full mt-2'>
 
-                        <Button type='primary' className='w-full text-[14px] font-semibold'>ADD TO CART</Button>
+                        <Button type='primary' className='w-full text-[14px] font-semibold' onClick={(e) => {
+                            e.stopPropagation()
+                        }}>ADD TO CART</Button>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
