@@ -5,10 +5,10 @@ import { Outlet } from 'react-router-dom'
 const Layout = () => {
     return (
         <div className='h-screen w-screen overflow-hidden flex flex-col'>
-            <div className='border-2'>
+            <div className=''>
                 <Navbar />
             </div>
-            <div className='border-2 border-red-500 flex-1 overflow-y-auto'>
+            <div className='bg-slate-100 flex-1 overflow-y-auto'>
                 <Outlet />
             </div>
         </div>

@@ -4,7 +4,7 @@ import { HeartTwoTone, ShoppingTwoTone } from "@ant-design/icons";
 const Navbar = () => {
     return (
 
-        <nav className='flex justify-between max-w-[1500px] w-screem mx-auto p-3'>
+        <nav className='flex justify-between max-w-[1500px] w-screen mx-auto p-3'>
             <div className='flex items-center gap-6 cursor-pointer'>
                 <img src="/images/favicon/favicon.png" alt="Logo" />
                 <p className='font-bold text-2xl'>ShoppyGlobe</p>
