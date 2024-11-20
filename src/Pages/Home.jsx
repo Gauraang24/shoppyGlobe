@@ -4,6 +4,8 @@ import ProductList from "./ProductList";
 import useFetch from "../utils/useFetch";
 import { SearchOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Home = () => {
     const {
@@ -23,11 +25,25 @@ const Home = () => {
     }, [data]);
 
     useEffect(() => {
+        if (error) {
+            toast.error(`Error: ${error}`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    }, [error]);
+
+    useEffect(() => {
         if (searchValue === "") {
             setProductList(data?.products);
         } else {
             const filteredData = data?.products?.filter((i) => {
-                return i?.title.toLowerCase().includes(searchValue);
+                return i?.title.toLowerCase().includes(searchValue.toLowerCase());
             });
             setProductList(filteredData);
         }
@@ -35,43 +51,41 @@ const Home = () => {
 
     return (
         <div className="w-screen">
-            {/* {error && <h1>Error: {error}</h1>} */}
-            <>
-                <img src={`/images/Banner.jpg`} alt="Banner" className="w-screen" />
-                <div className="max-w-[1500px] w-full overflow-x-hidden mx-auto">
-                    <div className="text-center my-5">
-                        <Input
-                            className="max-w-[500px] mx-4"
-                            placeholder="Search Something..."
-                            onChange={(e) => setSearchValue(e.target.value)}
-                            prefix={<SearchOutlined />}
-                            value={searchValue}
-                        />
-                    </div>
+            <ToastContainer />
+            <img src={`/images/Banner.jpg`} alt="Banner" className="w-screen" />
+            <div className="max-w-[1500px] w-full overflow-x-hidden mx-auto">
+                <div className="text-center my-5">
+                    <Input
+                        className="max-w-[500px] mx-4"
+                        placeholder="Search Something..."
+                        onChange={(e) => setSearchValue(e.target.value)}
+                        prefix={<SearchOutlined />}
+                        value={searchValue}
+                    />
+                </div>
 
-                    {loading ? (<div className="mt-10 w-screen text-center">
-
+                {loading ? (
+                    <div className="mt-10 w-screen text-center">
                         <Spin tip="Loading" size="large">
                             Loading
                         </Spin>
                     </div>
-                    ) : productList?.length ? (
-                        <>
-                            <Divider
-                                className=" max-w-[1500px] w-screen"
-                                style={{
-                                    borderColor: "black",
-                                }}
-                            >
-                                <p className="text-3xl mx-10 my-5">Products</p>{" "}
-                            </Divider>
-                            <ProductList data={productList} />
-                        </>
-                    ) : (
-                        <Empty />
-                    )}
-                </div>
-            </>
+                ) : productList?.length ? (
+                    <>
+                        <Divider
+                            className=" max-w-[1500px] w-screen"
+                            style={{
+                                borderColor: "black",
+                            }}
+                        >
+                            <p className="text-3xl mx-10 my-5">Products</p>{" "}
+                        </Divider>
+                        <ProductList data={productList} />
+                    </>
+                ) : (
+                    <Empty />
+                )}
+            </div>
         </div>
     );
 };

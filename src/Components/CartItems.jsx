@@ -1,9 +1,23 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { removeItem, updateQuantity } from '../store/cartSlice'
+import { toast } from 'react-toastify'
 
 const CartItems = ({ item }) => {
     const dispatch = useDispatch()
+    const handleRemove = (itemId, title) => {
+        dispatch(removeItem(itemId))
+        toast.success(`${title} has been removed from your cart!`, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        })
+    }
+
     return (
         <div
             key={item.id}
@@ -31,7 +45,6 @@ const CartItems = ({ item }) => {
                                 addedQuantity: item.addedQuantity - 1,
                             })
                         )
-
                     }
                     disabled={item.addedQuantity === 1}
                 >
@@ -59,7 +72,7 @@ const CartItems = ({ item }) => {
                 </p>
                 <button
                     className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                    onClick={() => dispatch(removeItem(item.id))}
+                    onClick={() => handleRemove(item.id, item.title)}
                 >
                     Remove
                 </button>
