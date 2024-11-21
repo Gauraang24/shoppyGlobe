@@ -31,6 +31,7 @@ const ProductItems = ({ data }) => {
             onClick={() => {
                 navigate(`productDetails/${data?.id}`);
             }}
+            key={data?.id}
         >
             <div className="border-b">
                 <img src={data?.thumbnail} alt={data?.title} width={300} />
