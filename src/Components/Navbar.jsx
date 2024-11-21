@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const cartData = useSelector(state => state.cart?.items)
-    console.log()
     const navigate = useNavigate()
     return (
 
